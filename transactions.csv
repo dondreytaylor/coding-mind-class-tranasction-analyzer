@@ -1,0 +1,10 @@
+date,category,description,amount
+2026-06-01,Food,Chick-fil-A,13.45
+2026-06-02,Transportation,Gas,42.10
+2026-06-03,Shopping,Amazon,89.99
+2026-06-04,Food,Chipotle,15.25
+2026-06-05,Bills,Phone Bill,175.00
+2026-06-06,Transportation,Uber,24.50
+2026-06-07,Shopping,Walmart,67.30
+bad,row,missing
+2026-06-08,Food,McDonalds,not_a_number
