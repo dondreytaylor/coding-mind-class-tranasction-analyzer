@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ── Sidebar nav ───────────────────────────────── -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-icon">&#9783;</span>
+      <span class="logo-text">ExpenseIQ</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#upload-section" class="nav-link active" data-section="upload-section">
+        <span class="nav-icon">&#8679;</span> Import CSV
+      </a></li>
+      <li><a href="#add-section" class="nav-link" data-section="add-section">
+        <span class="nav-icon">&#43;</span> Add Expense
+      </a></li>
+      <li><a href="#update-section" class="nav-link" data-section="update-section">
+        <span class="nav-icon">&#9998;</span> Update
+      </a></li>
+      <li><a href="#list-section" class="nav-link" data-section="list-section">
+        <span class="nav-icon">&#9776;</span> All Expenses
+      </a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <p>Coding Minds &copy; 2026</p>
+    </div>
+  </nav>
+
+  <!-- ── Main content ──────────────────────────────── -->
+  <div class="page-wrap">
+
+    <header class="topbar">
+      <div class="topbar-inner">
+        <h1 class="topbar-title">Expense Tracker</h1>
+        <p class="topbar-sub">Manage and import your transactions</p>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- CSV Upload -->
+      <section class="panel" id="upload-section">
+        <div class="panel-header">
+          <h2>Import Transactions via CSV</h2>
+          <p class="panel-desc">Upload a <code>.csv</code> file (max 5 MB). The first row must be a header row.</p>
+        </div>
+
+        <div class="drop-zone" id="drop-zone" role="button" tabindex="0" aria-label="Click or drag a CSV file here">
+          <div class="drop-zone-icon">&#128196;</div>
+          <p class="drop-zone-text">Drag &amp; drop your CSV here<br/>or <span class="drop-zone-link">browse files</span></p>
+          <input type="file" id="csv-input" accept=".csv" class="visually-hidden" />
+        </div>
+
+        <div id="file-info" class="file-info hidden">
+          <span class="file-name" id="file-name"></span>
+          <button id="clear-file" class="btn-icon" aria-label="Remove file">&times;</button>
+        </div>
+
+        <!-- Progress bar -->
+        <div id="progress-wrap" class="progress-wrap hidden">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progress-bar"></div>
+          </div>
+          <span class="progress-label" id="progress-label">0%</span>
+        </div>
+
+        <button id="upload-btn" class="btn btn-upload" disabled>Upload &amp; Parse</button>
+        <p id="upload-status" class="status-msg"></p>
+
+        <!-- Results table -->
+        <div id="csv-results" class="csv-results hidden">
+          <div class="results-meta" id="results-meta"></div>
+          <div class="table-scroll">
+            <table class="data-table" id="csv-table">
+              <thead id="csv-thead"></thead>
+              <tbody id="csv-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Add Expense -->
+      <section class="panel hidden" id="add-section">
+        <div class="panel-header">
+          <h2>Add a New Expense</h2>
+        </div>
+        <form id="add-form" class="grid-form">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" id="description" placeholder="e.g. Groceries" required />
+          </div>
+          <div class="form-group">
+            <label for="amount">Amount ($)</label>
+            <input type="number" id="amount" step="0.01" min="0" placeholder="0.00" required />
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" id="category" placeholder="e.g. Food" required />
+          </div>
+          <div class="form-group form-group--action">
+            <button type="submit" class="btn btn-primary">Add Expense</button>
+          </div>
+        </form>
+        <p id="add-status" class="status-msg"></p>
+      </section>
+
+      <!-- Update Expense -->
+      <section class="panel hidden" id="update-section">
+        <div class="panel-header">
+          <h2>Update an Expense</h2>
+        </div>
+        <form id="update-form" class="grid-form">
+          <div class="form-group">
+            <label for="update-id">Expense ID</label>
+            <input type="number" id="update-id" min="1" placeholder="ID" required />
+          </div>
+          <div class="form-group">
+            <label for="update-description">Description</label>
+            <input type="text" id="update-description" placeholder="Leave blank to keep" />
+          </div>
+          <div class="form-group">
+            <label for="update-amount">Amount ($)</label>
+            <input type="number" id="update-amount" step="0.01" min="0" placeholder="Leave blank to keep" />
+          </div>
+          <div class="form-group">
+            <label for="update-category">Category</label>
+            <input type="text" id="update-category" placeholder="Leave blank to keep" />
+          </div>
+          <div class="form-group form-group--action">
+            <button type="submit" class="btn btn-accent">Update Expense</button>
+          </div>
+        </form>
+        <p id="update-status" class="status-msg"></p>
+      </section>
+
+      <!-- Expense List -->
+      <section class="panel hidden" id="list-section">
+        <div class="panel-header">
+          <h2>All Expenses</h2>
+        </div>
+        <button id="load-btn" class="btn btn-outline">Load Expenses</button>
+        <div class="table-scroll" id="expense-table-wrap">
+          <table class="data-table hidden" id="expense-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Description</th><th>Amount</th><th>Category</th>
+              </tr>
+            </thead>
+            <tbody id="expense-tbody"></tbody>
+          </table>
+        </div>
+        <p id="empty-msg" class="status-msg hidden">No expenses found.</p>
+      </section>
+
+    </main>
+  </div><!-- /.page-wrap -->
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
