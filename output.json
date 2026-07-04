@@ -1,0 +1,50 @@
+[
+  {
+    "date": "2026-06-01",
+    "category": "food",
+    "description": "lunch",
+    "amount": 12.5
+  },
+  {
+    "date": "2026-06-02",
+    "category": "gas",
+    "description": "shell",
+    "amount": 45.0
+  },
+  {
+    "date": "2026-06-03",
+    "category": "shopping",
+    "description": "target",
+    "amount": 67.89
+  },
+  {
+    "date": "2026-06-04",
+    "category": "food",
+    "description": "dinner",
+    "amount": 23.0
+  },
+  {
+    "date": "2026-06-05",
+    "category": "bills",
+    "description": "internet",
+    "amount": 80.0
+  },
+  {
+    "date": "2026-06-06",
+    "category": "gas",
+    "description": "chevron",
+    "amount": 38.2
+  },
+  {
+    "date": "2026-06-07",
+    "category": "food",
+    "description": "coffee",
+    "amount": 5.5
+  },
+  {
+    "date": "2026-06-08",
+    "category": "shopping",
+    "description": "amazon",
+    "amount": 102.45
+  }
+]
